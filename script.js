@@ -8,7 +8,7 @@ function addCards() {
     <div class="ratings">
     <input class="upvote-btn" type="image" src="FEE-ideabox-icon-assets/upvote.svg" />
     <input class="downvote-btn" type="image" src="FEE-ideabox-icon-assets/downvote.svg" />
-    <p class="quality">quality:<span>swill</span></p>
+    <p class="quality">quality:<span class="qualityRating">swill</span></p>
     <hr>
     </div>
     </article>`)
@@ -19,6 +19,24 @@ function fireCards (event) {
   addCards()
 }
 
+function upVote() {
+  var spanText = $('.qualityRating').text();
+  if (spanText === 'swill') {
+  $('.qualityRating').text('plausible')
+} else if (spanText === 'plausible') {
+  $('.qualityRating').text('genius')
+} else {
+  $('.qualityRating').text('genius')
+ }
+}
+
+
+function upvoteListener(event) {
+  event.preventDefault ()
+  $(this).parents('.idea-card')
+  upVote()
+}
+
 function deleteCard() {
  $(this).parents('.idea-card').remove()
 }
@@ -26,3 +44,4 @@ function deleteCard() {
 
 $('.save-btn').on('click', fireCards)
 $('.idea-card-parent').on('click', '.delete-btn', deleteCard)
+$('.idea-card-parent').on('click', '.upvote-btn', upvoteListener)
