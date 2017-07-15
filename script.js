@@ -30,11 +30,30 @@ function upVote() {
  }
 }
 
+function downVote() {
+  var spanText = $('.qualityRating').text();
+  if (spanText === 'swill') {
+  $('.qualityRating').text('swill')
+} else if (spanText === 'plausible') {
+  $('.qualityRating').text('swill')
+} else if (spanText === 'genius') {
+  $('.qualityRating').text('plausible')
+} else {
+  $('.qualityRating').text('swill')
+ }
+}
+
 
 function upvoteListener(event) {
   event.preventDefault ()
   $(this).parents('.idea-card')
   upVote()
+}
+
+function downvoteListener(event) {
+  event.preventDefault ()
+  $(this).parents('.idea-card')
+  downVote()
 }
 
 function deleteCard() {
@@ -45,3 +64,4 @@ function deleteCard() {
 $('.save-btn').on('click', fireCards)
 $('.idea-card-parent').on('click', '.delete-btn', deleteCard)
 $('.idea-card-parent').on('click', '.upvote-btn', upvoteListener)
+$('.idea-card-parent').on('click', '.downvote-btn', downvoteListener)
