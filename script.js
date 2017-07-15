@@ -20,3 +20,7 @@ function fireCards (event) {
 }
 
 $('.save-btn').on('click', fireCards)
+
+$('.idea-card-parent').on('click', '.delete-btn', function() {
+  $(this).parents('.idea-card').remove()
+})
