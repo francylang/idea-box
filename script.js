@@ -19,8 +19,10 @@ function fireCards (event) {
   addCards()
 }
 
-$('.save-btn').on('click', fireCards)
+function deleteCard() {
+ $(this).parents('.idea-card').remove()
+}
 
-$('.idea-card-parent').on('click', '.delete-btn', function() {
-  $(this).parents('.idea-card').remove()
-})
+
+$('.save-btn').on('click', fireCards)
+$('.idea-card-parent').on('click', '.delete-btn', deleteCard)
