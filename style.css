@@ -10,6 +10,10 @@ body {
 h1 {
   font-family: 'roboto slab', sans-serif;
   font-weight: 700;
+  text-align: center;
+  font-size: 3em;
+  padding-top: .75em;
+  margin-bottom: .75em;
 }
 
 .idea {
@@ -20,13 +24,34 @@ h1 {
   color: #6D6E71;
 }
 
+.title-input,
+.body-input,
+.save-btn,
+.search-input {
+  width: 66%;
+  display: block;
+  margin: auto;
+  margin-bottom: 2em;
+  height: 3em;
+}
+
 .save-btn {
   background-color: #00A79D;
   color: #FFFFFF;
+  border: none;
 }
 
 .save-btn:hover {
   background-color: #045E55;
+}
+
+.input-fields {
+  padding-bottom: .15em;
+}
+
+.search-section {
+  margin-top: 1.75em;
+  margin-bottom: 1.75em;
 }
 
 h2 {
@@ -42,6 +67,41 @@ h2 {
   color: #6D6E71;
 }
 
+.idea-card {
+  width: 66%;
+  margin: auto;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-family: 'roboto slab', sans-serif;
+  display: inline-block;
+}
+
 hr {
   #D1D3D4;
+}
+
+.delete-btn,
+.upvote-btn,
+.downvote-btn {
+  height: 1.5em;
+  width: 1.5em;
+  display: inline-block;
+}
+
+.delete-btn {
+  margin-left: 72em;
+}
+.quality {
+  display: inline-block;
+  margin-bottom: .25em;
+  font-family: 'roboto slab', sans-serif;
+
+}
+
+h2,
+.ratings,
+.body-text {
+  margin-bottom: .75em;
 }
