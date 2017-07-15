@@ -1,0 +1,47 @@
+body {
+  font-family: 'open sans', sans-serif;
+  font-weight: 400;
+}
+
+.top-section {
+  background-color: #E5F3F2;
+}
+
+h1 {
+  font-family: 'roboto slab', sans-serif;
+  font-weight: 700;
+}
+
+.idea {
+  color: #00A79D;
+}
+
+.box {
+  color: #6D6E71;
+}
+
+.save-btn {
+  background-color: #00A79D;
+  color: #FFFFFF;
+}
+
+.save-btn:hover {
+  background-color: #045E55;
+}
+
+h2 {
+  color: #6D6E71;
+}
+
+.body {
+  color: #939598;
+  text-align: left;
+}
+
+.quality {
+  color: #6D6E71;
+}
+
+hr {
+  #D1D3D4;
+}
