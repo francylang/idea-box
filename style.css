@@ -90,8 +90,44 @@ hr {
   display: inline-block;
 }
 
-.delete-btn {
-  margin-left: 72em;
+#delete {
+  height: 1.5em;
+  width: 1.5em;
+  position: absolute;
+
+  /*margin-left: 72em;*/
+  display: inline-block;
+  background-image: url(ideabox-assets/delete.svg)
+}
+#delete:hover {
+  background-image: url(ideabox-assets/delete-hover.svg);
+}
+
+#upvote {
+    height: 1.5em;
+    width: 1.5em;
+
+    /*margin-left: 72em;*/
+    display: inline-block;
+  background-image: url(ideabox-assets/upvote.svg)
+}
+
+#upvote:hover {
+  background-image: url(ideabox-assets/upvote-hover.svg)
+}
+
+#downvote {
+  height: 1.5em;
+  width: 1.5em;
+  display: inline-block;
+  background-image: url(ideabox-assets/downvote.svg)
+}
+
+#downvote:hover {
+  background-image: url(ideabox-assets/downvote-hover.svg)
+}
+
+
 }
 .quality {
   display: inline-block;
