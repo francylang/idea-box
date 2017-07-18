@@ -8,16 +8,16 @@ function CardElements(title, body) {
 // create empty array []
 var cardArray = []
 
-function addCards (card) {
+function addCards (buildCard) {
   $('.idea-card-parent').prepend(
-  `<article class="idea-card" id="${this.id}">
-      <h2>${this.title}</h2>
+  `<article class="idea-card" id="${buildCard.id}">
+      <h2>${buildCard.title}</h2>
         <input class="delete-btn" type="image" src="FEE-ideabox-icon-assets/delete.svg" />
-        <p class="body-text">${this.body}</p>
+        <p class="body-text">${buildCard.body}</p>
     <div class="ratings">
       <input class="upvote-btn" type="image" src="FEE-ideabox-icon-assets/upvote.svg" />
       <input class="downvote-btn" type="image" src="FEE-ideabox-icon-assets/downvote.svg" />
-      <p class="quality">quality:<span class="qualityRating">swill</span></p>
+      <p class="quality">quality:<span class="qualityRating">${buildCard.quality}</span></p>
     <hr>
     </div>
     </article>`);
