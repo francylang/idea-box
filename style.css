@@ -35,6 +35,10 @@ h1 {
   height: 3em;
 }
 
+.input:focus {
+  
+}
+
 .save-btn {
   background-color: #00A79D;
   color: #FFFFFF;
