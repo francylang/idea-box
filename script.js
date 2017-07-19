@@ -7,6 +7,7 @@ function CardElements(title, body) {
 
 
 $(window).on('load', function(){
+  console.log('working!!!');
   retrieveLocalStorage();
   clearInputs();
 })
@@ -36,13 +37,12 @@ function addCards (buildCard) {
 }
 
 
-function fireCards (event) {
-  event.preventDefault ();
+function fireCards () {
   var newCard = new CardElements ($('.title-input').val(), $('.body-input').val());
   // console.log(newCard);
   cardArray.push(newCard)
   addCards(newCard);
-  // console.log(cardArray);
+  console.log(cardArray);
   storeCards();
 }
 
@@ -77,35 +77,11 @@ function downVote () {
  }
 };
 
-$('.idea-card-parent').on('click', '#delete', function(){
-  var CardId = $(this).closest('.idea-card')[0].id
-  cardArray.forEach(function (card, index) {
-    if (cardId == card.id) {
-      cardArray.splice(index, 1)
-    }
-  })
-  storeCards()
-  $(this).parents('.idea-card').remove()
-});
-
-function upvoteListener(event) {
-  event.preventDefault ()
-  // console.log("click")
-  upVote()
-}
-
-function downvoteListener(event) {
-  event.preventDefault ()
-  $(this).parents('.idea-card')
-  downVote()
-}
-
-$('.save-btn').on('click', fireCards)
 
 $('.idea-card-parent').on('click', '#delete', function(){
-  var cardId = $(this).closest('.idea-card')[0].id
+  var currentCardId = $(this).closest('.idea-card')[0].id
 cardArray.forEach(function (card, index){
-if (cardId == card.id){
+if (currentCardId == card.id){
   cardArray.splice(index, 1)
 }
 })
@@ -113,11 +89,12 @@ storeCards()
 $(this).parents('.idea-card').remove()
 })
 
-$('.idea-card-parent').on('click', '#upvote', function (){
+$('.idea-card-parent').on('click', '#upvote', function (event){
+  event.preventDefault();
   var cardId = $(this).closest('.idea-card')[0].id
   console.log(cardId)
   var newQuality;
-  cardArray.forEach(function (card, index) {
+  cardArray.forEach(function (card) {
   if (card.id == cardId) {
     if (card.quality === 'Swill') {
       card.quality === 'Plausible'
@@ -131,7 +108,7 @@ $('.idea-card-parent').on('click', '#upvote', function (){
   })
 });
 
-$('.idea-card-parent').on('click', '#downvote', downvoteListener)
+// $('.idea-card-parent').on('click', '#downvote', downvoteListener)
 
 
 $('.idea-card-parent').on('click', '#upvote', function() {
@@ -152,7 +129,10 @@ $('.idea-card-parent').on('click', '#upvote', function() {
 });
 
 function storeCards() {
+  console.log("before storing card: ", cardArray)
   localStorage.setItem('array', JSON.stringify(cardArray));
+  console.log("after storing card: ", cardArray)
+
 };
 // clear input fields after prepend
 function clearInputs() {
@@ -167,18 +147,11 @@ function clearInputs() {
 // retrieve card from local storage
 // WE WANT THIS TO FIRE ON PAGE LOAD?
 function retrieveLocalStorage() {
-  cardArray = JSON.parse(localStorage.getItem('array')) ;
+  cardArray = JSON.parse(localStorage.getItem('array')) || [] ;
   cardArray.forEach(function(card) {
-    fireCards(card);
+    addCards (card);
   })
 }
-
-
-  // function updateLocalStorage() {
-  //   var stringifiedArray = JSON.stringify(cardArray);
-  //   localStorage.setItem('array', stringifiedArray);
-  // };
-
 
   $('.search-input').on('keyup',searchCards)
 
@@ -210,5 +183,8 @@ function searchCards() {
 // });
 
 // EVENT LISTENER FOR SEARCH
-$('.save-btn').on('click', fireCards)
-$('.idea-card-parent').on('click', '.downvote-btn', downvoteListener)
+$('.save-btn').on('click', function(event){
+  event.preventDefault ();
+  fireCards ()
+})
+// $('.idea-card-parent').on('click', '.downvote-btn', downvoteListener)
