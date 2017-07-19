@@ -18,12 +18,12 @@ var cardArray = []
 function addCards (buildCard) {
   $('.idea-card-parent').prepend(
 `<article class="idea-card" id="${buildCard.id}">
-  <h2>${buildCard.title}</h2>
+  <h2 contenteditable="true">${buildCard.title}</h2>
 
 
 <div id="delete">
 </div>
-    <p class="body-text">${buildCard.body}</p>
+    <p class="body-text" contenteditable="true">${buildCard.body}</p>
   <div class="ratings">
 <div id="upvote">
 </div>
@@ -44,6 +44,7 @@ function fireCards () {
   addCards(newCard);
   console.log(cardArray);
   storeCards();
+  clearInputs();
 }
 
 // climb and find id
@@ -132,6 +133,7 @@ function storeCards() {
   console.log("before storing card: ", cardArray)
   localStorage.setItem('array', JSON.stringify(cardArray));
   console.log("after storing card: ", cardArray)
+  clearInputs()
 
 };
 // clear input fields after prepend
