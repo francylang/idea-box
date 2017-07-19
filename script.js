@@ -190,3 +190,12 @@ $('.save-btn').on('click', function(event){
   fireCards ()
 })
 // $('.idea-card-parent').on('click', '.downvote-btn', downvoteListener)
+
+var id = $(this).closest('.idea-card')[0].id;
+var edit = this.text;
+cardArray.forEach(function(card) {
+  if (card.id == id) {
+    card.id = edit;
+
+  }
+})
