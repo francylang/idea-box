@@ -36,32 +36,32 @@ function storeCards() {
 function fireCards (event) {
   event.preventDefault ();
   var newCard = new CardElements ($('.title-input').val(), $('.body-input').val());
-  console.log(newCard);
+  // console.log(newCard);
   cardArray.push(newCard)
   addCards(newCard);
-  console.log(cardArray);
+  // console.log(cardArray);
   storeCards();
 }
 
 // climb and find id
 // pull the quality value from the index that that value lives on in the array
-function upVote(userRating) {
-  var newArticle = document.createElement('article')
-  var currentQuality = userRating.closest(newArticle).id;
-  var newQuality;
-  cardArray.forEach(function (card) {
-  if (card.id == currentQuality) {
-    if (card.quality === 'Swill') {
-      card.quality === 'Plausible'
-      newQuality === card.quality;
-  } else if (card.quality === 'Plausible') {
-      card.quality === 'Genius'
-      newQuality === card.quality;
-  } else {
-    card.quality === 'Genius'
-}}
-  })
-};
+// function upVote() {
+//   var newQuality;
+//   cardArray.forEach(function (card) {
+//   if (card.id == currentQuality) {
+//     if (card.quality === 'Swill') {
+//       card.quality === 'Plausible'
+//       newQuality === card.quality;
+//   } else if (card.quality === 'Plausible') {
+//       card.quality === 'Genius'
+//       newQuality === card.quality;
+//   } else {
+//     card.quality === 'Genius'
+// }}
+//   })
+// };
+
+
 
 function downVote () {
   var currentQuality = this.quality;
@@ -79,7 +79,7 @@ function downVote () {
 
 function upvoteListener(event) {
   event.preventDefault ()
-  $(this).parents('.idea-card')
+  // console.log("click")
   upVote()
 }
 
@@ -89,15 +89,51 @@ function downvoteListener(event) {
   downVote()
 }
 
-function deleteCard() {
- $(this).parents('.idea-card').remove()
-}
+// function deleteCard() {
+//
+// }
 
 
 $('.save-btn').on('click', fireCards)
-$('.idea-card-parent').on('click', '.delete-btn', deleteCard)
-$('.idea-card-parent').on('click', '.upvote-btn', upvoteListener)
-$('.idea-card-parent').on('click', '.downvote-btn', downvoteListener)
+
+
+$('.idea-card-parent').on('click', '#delete', function(){
+  var cardId = $(this).closest('.idea-card')[0].id
+cardArray.forEach(function (card, index){
+if (cardId == card.id){
+  cardArray.splice(index, 1)
+}
+})
+storeCards()
+$(this).parents('.idea-card').remove()
+})
+
+
+
+$('.idea-card-parent').on('click', '#upvote', function (){
+  var cardId = $(this).closest('.idea-card')[0].id
+  console.log(cardId)
+  var newQuality;
+  cardArray.forEach(function (card, index) {
+  if (card.id == cardId) {
+    if (card.quality === 'Swill') {
+      card.quality === 'Plausible'
+      newQuality === card.quality;
+  } else if (card.quality === 'Plausible') {
+      card.quality === 'Genius'
+      newQuality === card.quality;
+  } else {
+    card.quality === 'Genius'
+}}
+  })
+});
+
+
+
+
+
+
+$('.idea-card-parent').on('click', '#downvote', downvoteListener)
 
 
 
@@ -107,7 +143,3 @@ function clearInputs() {
   $('.body-input').val('');
   $('title-input').focus();
 }
-
-
-// retrieve card from local storage
-function retrieveLocalStorage()
