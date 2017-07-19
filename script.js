@@ -5,6 +5,12 @@ function CardElements(title, body) {
   this.quality = 'Swill';
 }
 
+
+$(window).on('load', function(){
+  retrieveLocalStorage();
+  clearInputs();
+})
+
 // create empty array []
 var cardArray = []
 
@@ -29,9 +35,6 @@ function addCards (buildCard) {
 </article>`);
 }
 
-function storeCards() {
-  localStorage.setItem("array", JSON.stringify(cardArray));
-}
 
 function fireCards (event) {
   event.preventDefault ();
@@ -77,30 +80,38 @@ function downVote () {
 };
 
 
-function upvoteListener(event) {
-  event.preventDefault ()
-  $(this).parents('.idea-card')
-  upVote()
-}
-
-function downvoteListener(event) {
-  event.preventDefault ()
-  $(this).parents('.idea-card')
-  downVote()
-}
-
-function deleteCard() {
- $(this).parents('.idea-card').remove()
-}
+$('.idea-card-parent').on('click', '#delete', function(){
+  var CardId = $(this).closest('.idea-card')[0].id
+  cardArray.forEach(function (card, index) {
+    if (cardId == card.id) {
+      cardArray.splice(index, 1)
+    }
+  })
+  storeCards()
+  $(this).parents('.idea-card').remove()
+});
 
 
-$('.save-btn').on('click', fireCards)
-$('.idea-card-parent').on('click', '.delete-btn', deleteCard)
-$('.idea-card-parent').on('click', '.upvote-btn', upvoteListener)
-$('.idea-card-parent').on('click', '.downvote-btn', downvoteListener)
+$('.idea-card-parent').on('click', '#upvote', function() {
+  var cardId = $(this).closest('idea-card')[0].id
+  console.log(CardId)
+  var newQuality;
+  cardArray.forEach(function (card, index){
+    if (card.id == cardId) {
+      if (card.quality === 'Swill') {
+        card.quality === 'Plausible'
+        newQuality === card.quality;
+      } else if (card.quality === 'Plausible') {
+        card.quality === 'Genius'
+        newQuality === 'Genius'
+      }
+    }
+  })
+});
 
-
-
+function storeCards() {
+  localStorage.setItem('array', JSON.stringify(cardArray));
+};
 // clear input fields after prepend
 function clearInputs() {
   $('.title-input').val('');
@@ -109,5 +120,52 @@ function clearInputs() {
 }
 
 
+
 // retrieve card from local storage
-function retrieveLocalStorage()
+// WE WANT THIS TO FIRE ON PAGE LOAD?
+function retrieveLocalStorage() {
+  cardArray = JSON.parse(localStorage.getItem('array')) ;
+  cardArray.forEach(function(card) {
+    fireCards(card);
+  })
+}
+
+
+  // function updateLocalStorage() {
+  //   var stringifiedArray = JSON.stringify(cardArray);
+  //   localStorage.setItem('array', stringifiedArray);
+  // };
+
+
+  $('.search-input').on('keyup',searchCards)
+
+// search
+function searchCards() {
+  var search = $(this).val().toUpperCase();
+  var results = cardArray.filter(function(newCard) {
+    return newCard.title.toUpperCase().includes(search) || newCard.body.toUpperCase().includes(search) ||
+    newCard.quality.toUpperCase().includes(search);
+    });
+  $('.search-input').empty();
+ for (var i = 0; i < results.length; i++) {
+   addCard(results[i]);
+  }
+}
+
+
+
+// if (event.keyCode === 13) {
+//   event.preventDefault();
+//   this.blur();}
+
+
+
+//
+// $('.idea-card-parent').empty();
+// results.forEach(function(result) {
+//   addCard(result)
+// });
+
+// EVENT LISTENER FOR SEARCH
+$('.save-btn').on('click', fireCards)
+$('.idea-card-parent').on('click', '.downvote-btn', downvoteListener)
