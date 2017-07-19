@@ -37,16 +37,24 @@ function fireCards (event) {
   storeCards();
 }
 
-
-function upVote() {
-  var currentQuality = this.quality;
-  if (currentQuality === 'swill') {
-  $('.qualityRating').text('plausible')
-} else if (currentQuality === 'plausible') {
-  $('.qualityRating').text('genius')
-} else {
-  $('.qualityRating').text('genius')
- }
+// climb and find id
+// pull the quality value from the index that that value lives on in the array
+function upVote(userRating) {
+  var newArticle = document.createElement('article')
+  var currentQuality = userRating.closest(newArticle).id;
+  var newQuality;
+  cardArray.forEach(function (card) {
+  if (card.id == currentQuality) {
+    if (card.quality === 'Swill') {
+      card.quality === 'Plausible'
+      newQuality === card.quality;
+  } else if (card.quality === 'Plausible') {
+      card.quality === 'Genius'
+      newQuality === card.quality;
+  } else {
+    card.quality === 'Genius'
+}}
+  })
 };
 
 function downVote () {
