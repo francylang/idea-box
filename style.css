@@ -35,8 +35,23 @@ h1 {
   height: 3em;
 }
 
-.input:focus {
-  
+.title-input:focus {
+  outline-style: auto;
+  outline-color: #00A79D;
+}
+
+.body-input:focus {
+  outline-style: auto;
+  outline-color: #00A79D;
+}
+.save-btn:focus {
+  outline-style: auto;
+  outline-color: #00A79D;
+}
+
+.search-input:focus {
+  outline-style: auto;
+  outline-color: #00A79D;
 }
 
 .save-btn {
