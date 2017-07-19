@@ -39,32 +39,30 @@ function addCards (buildCard) {
 function fireCards (event) {
   event.preventDefault ();
   var newCard = new CardElements ($('.title-input').val(), $('.body-input').val());
-  console.log(newCard);
+  // console.log(newCard);
   cardArray.push(newCard)
   addCards(newCard);
-  console.log(cardArray);
+  // console.log(cardArray);
   storeCards();
 }
 
 // climb and find id
 // pull the quality value from the index that that value lives on in the array
-function upVote(userRating) {
-  var newArticle = document.createElement('article')
-  var currentQuality = userRating.closest(newArticle).id;
-  var newQuality;
-  cardArray.forEach(function (card) {
-  if (card.id == currentQuality) {
-    if (card.quality === 'Swill') {
-      card.quality === 'Plausible'
-      newQuality === card.quality;
-  } else if (card.quality === 'Plausible') {
-      card.quality === 'Genius'
-      newQuality === card.quality;
-  } else {
-    card.quality === 'Genius'
-}}
-  })
-};
+// function upVote() {
+//   var newQuality;
+//   cardArray.forEach(function (card) {
+//   if (card.id == currentQuality) {
+//     if (card.quality === 'Swill') {
+//       card.quality === 'Plausible'
+//       newQuality === card.quality;
+//   } else if (card.quality === 'Plausible') {
+//       card.quality === 'Genius'
+//       newQuality === card.quality;
+//   } else {
+//     card.quality === 'Genius'
+// }}
+//   })
+// };
 
 function downVote () {
   var currentQuality = this.quality;
@@ -79,7 +77,6 @@ function downVote () {
  }
 };
 
-
 $('.idea-card-parent').on('click', '#delete', function(){
   var CardId = $(this).closest('.idea-card')[0].id
   cardArray.forEach(function (card, index) {
@@ -90,6 +87,51 @@ $('.idea-card-parent').on('click', '#delete', function(){
   storeCards()
   $(this).parents('.idea-card').remove()
 });
+
+function upvoteListener(event) {
+  event.preventDefault ()
+  // console.log("click")
+  upVote()
+}
+
+function downvoteListener(event) {
+  event.preventDefault ()
+  $(this).parents('.idea-card')
+  downVote()
+}
+
+$('.save-btn').on('click', fireCards)
+
+$('.idea-card-parent').on('click', '#delete', function(){
+  var cardId = $(this).closest('.idea-card')[0].id
+cardArray.forEach(function (card, index){
+if (cardId == card.id){
+  cardArray.splice(index, 1)
+}
+})
+storeCards()
+$(this).parents('.idea-card').remove()
+})
+
+$('.idea-card-parent').on('click', '#upvote', function (){
+  var cardId = $(this).closest('.idea-card')[0].id
+  console.log(cardId)
+  var newQuality;
+  cardArray.forEach(function (card, index) {
+  if (card.id == cardId) {
+    if (card.quality === 'Swill') {
+      card.quality === 'Plausible'
+      newQuality === card.quality;
+  } else if (card.quality === 'Plausible') {
+      card.quality === 'Genius'
+      newQuality === card.quality;
+  } else {
+    card.quality === 'Genius'
+}}
+  })
+});
+
+$('.idea-card-parent').on('click', '#downvote', downvoteListener)
 
 
 $('.idea-card-parent').on('click', '#upvote', function() {
@@ -118,6 +160,7 @@ function clearInputs() {
   $('.body-input').val('');
   $('title-input').focus();
 }
+
 
 
 
