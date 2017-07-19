@@ -10,17 +10,23 @@ var cardArray = []
 
 function addCards (buildCard) {
   $('.idea-card-parent').prepend(
-  `<article class="idea-card" id="${buildCard.id}">
-      <h2>${buildCard.title}</h2>
-        <input class="delete-btn" type="image" src="FEE-ideabox-icon-assets/delete.svg" />
-        <p class="body-text">${buildCard.body}</p>
-    <div class="ratings">
-      <input class="upvote-btn" type="image" src="FEE-ideabox-icon-assets/upvote.svg" />
-      <input class="downvote-btn" type="image" src="FEE-ideabox-icon-assets/downvote.svg" />
-      <p class="quality">quality:<span class="qualityRating">${buildCard.quality}</span></p>
+`<article class="idea-card" id="${buildCard.id}">
+  <h2>${buildCard.title}</h2>
+
+
+<div id="delete">
+</div>
+    <p class="body-text">${buildCard.body}</p>
+  <div class="ratings">
+<div id="upvote">
+</div>
+
+<div id="downvote"
+</div>
+    <p class="quality">quality: <span class="qualityRating">${buildCard.quality}</span></p>
     <hr>
-    </div>
-    </article>`);
+  </div>
+</article>`);
 }
 
 function storeCards() {
@@ -92,3 +98,16 @@ $('.save-btn').on('click', fireCards)
 $('.idea-card-parent').on('click', '.delete-btn', deleteCard)
 $('.idea-card-parent').on('click', '.upvote-btn', upvoteListener)
 $('.idea-card-parent').on('click', '.downvote-btn', downvoteListener)
+
+
+
+// clear input fields after prepend
+function clearInputs() {
+  $('.title-input').val('');
+  $('.body-input').val('');
+  $('title-input').focus();
+}
+
+
+// retrieve card from local storage
+function retrieveLocalStorage()
