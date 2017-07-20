@@ -6,7 +6,7 @@ function CardElements(title, body) {
   this.body = body;
   this.id = Date.now();
   this.quality = 'swill';
-}
+};
 
 $(window).on('load', function() {
   retrieveLocalStorage();
@@ -19,31 +19,6 @@ $('.title-input, .body-input').keyup(function() {
   }
 });
 
-
-function addCards(buildCard) {
-  $('.idea-card-parent').prepend(
-    `<article class="idea-card" id="${buildCard.id}">
-      <h2 contenteditable="true">${buildCard.title}</h2>
-      <div class="delete-btn" id="delete">
-      </div>
-      <p class="body-text" contenteditable="true">${buildCard.body}</p>
-      <div class="ratings">
-      <div class="upvote-btn" id="upvote"></div>
-      <div class="downvote-btn" id="downvote"></div>
-        <p class="quality">quality: <span class="${buildCard.id}">${buildCard.quality}</span></p>
-      </div>
-      <hr>
-    </article>`);
-}
-
-function fireCards() {
-  var newCard = new CardElements($('.title-input').val(), $('.body-input').val());
-  cardArray.push(newCard)
-  addCards(newCard);
-  storeCards();
-  clearInputs();
-}
-
 $('.idea-card-parent').on('click', '#delete', function() {
   var currentCardId = $(this).closest('.idea-card')[0].id
   cardArray.forEach(function(card, index) {
@@ -53,7 +28,7 @@ $('.idea-card-parent').on('click', '#delete', function() {
   })
   storeCards()
   $(this).parents('.idea-card').remove()
-})
+});
 
 $('.idea-card-parent').on('click', '#upvote', function(event) {
   event.preventDefault();
@@ -78,9 +53,7 @@ $('.idea-card-parent').on('click', '#upvote', function(event) {
 $('.idea-card-parent').on('click', '#downvote', function (event){
   event.preventDefault();
   var cardId = $(this).closest('.idea-card')[0].id
-  console.log(cardId)
   cardArray.forEach(function (card) {
-    console.log(cardId)
   if (card.id == cardId) {
     if (card.quality === 'genius') {
         card.quality = 'plausible';
@@ -96,24 +69,6 @@ $('.idea-card-parent').on('click', '#downvote', function (event){
   storeCards();
 })
 });
-
-function storeCards() {
-  localStorage.setItem('array', JSON.stringify(cardArray));
-  clearInputs()
-};
-
-function clearInputs() {
-  $('.title-input').val('');
-  $('.body-input').val('');
-  $('title-input').focus();
-}
-
-function retrieveLocalStorage() {
-  cardArray = JSON.parse(localStorage.getItem('array')) || [];
-  cardArray.forEach(function(card) {
-    addCards(card);
-  })
-}
 
 $('.save-btn').on('click', function(event) {
   event.preventDefault();
@@ -152,6 +107,7 @@ cardList.on('keyup', '.body-text', function(event) {
 });
 
 $('.search-input').on('keyup', searchCards)
+
 function searchCards() {
   var search = $(this).val().toUpperCase();
   var results = cardArray.filter(function(elementCard) {
@@ -163,4 +119,46 @@ function searchCards() {
   for (var i = 0; i < results.length; i++) {
     addCards(results[i]);
   }
-}
+};
+
+function addCards(buildCard) {
+  $('.idea-card-parent').prepend(
+    `<article class="idea-card" id="${buildCard.id}">
+      <h2 contenteditable="true">${buildCard.title}</h2>
+      <div class="delete-btn" id="delete">
+      </div>
+      <p class="body-text" contenteditable="true">${buildCard.body}</p>
+      <div class="ratings">
+      <div class="upvote-btn" id="upvote"></div>
+      <div class="downvote-btn" id="downvote"></div>
+        <p class="quality">quality: <span class="${buildCard.id}">${buildCard.quality}</span></p>
+      </div>
+      <hr>
+    </article>`);
+};
+
+function fireCards() {
+  var newCard = new CardElements($('.title-input').val(), $('.body-input').val());
+  cardArray.push(newCard)
+  addCards(newCard);
+  storeCards();
+  clearInputs();
+};
+
+function storeCards() {
+  localStorage.setItem('array', JSON.stringify(cardArray));
+  clearInputs()
+};
+
+function clearInputs() {
+  $('.title-input').val('');
+  $('.body-input').val('');
+  $('title-input').focus();
+};
+
+function retrieveLocalStorage() {
+  cardArray = JSON.parse(localStorage.getItem('array')) || [];
+  cardArray.forEach(function(card) {
+    addCards(card);
+  })
+};
