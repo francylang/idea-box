@@ -79,6 +79,10 @@ h1 {
 .save-btn:hover {
   background-color: #045E55;
 }
+
+.save-btn:disabled {
+  background-color: #D1D3D4;
+}
 .input-fields {
   padding-bottom: .15em;
 }

@@ -5,14 +5,20 @@ function CardElements(title, body) {
   this.title = title;
   this.body = body;
   this.id = Date.now();
-  this.quality = 'Swill';
+  this.quality = 'swill';
 }
 
 $(window).on('load', function() {
-  console.log('working!!!');
   retrieveLocalStorage();
   clearInputs();
-})
+});
+
+$('.title-input, .body-input').keyup(function() {
+  if (($('.title-input').val() !== "") || ($('.body-input').val() !== "")) {
+    $('.save-btn').removeAttr('disabled');
+  }
+});
+
 
 function addCards(buildCard) {
   $('.idea-card-parent').prepend(
@@ -54,15 +60,15 @@ $('.idea-card-parent').on('click', '#upvote', function(event) {
   var cardId = $(this).closest('.idea-card')[0].id
   cardArray.forEach(function(card) {
     if (card.id == cardId) {
-      if (card.quality === "Swill") {
-        card.quality = "Plausible";
-        $('.' + cardId).text('Plausible')
-      } else if (card.quality === "Plausible") {
-        card.quality = "Genius"
-        $('.' + cardId).text('Genius')
+      if (card.quality === "swill") {
+        card.quality = "plausible";
+        $('.' + cardId).text('plausible')
+      } else if (card.quality === "plausible") {
+        card.quality = "genius"
+        $('.' + cardId).text('genius')
       } else {
-        card.quality = "Genius"
-        $('.' + cardId).text('Genius')
+        card.quality = "genius"
+        $('.' + cardId).text('genius')
       }
     }
     storeCards();
@@ -76,15 +82,15 @@ $('.idea-card-parent').on('click', '#downvote', function (event){
   cardArray.forEach(function (card) {
     console.log(cardId)
   if (card.id == cardId) {
-    if (card.quality === 'Genius') {
-        card.quality = 'Plausible';
-        $('.' + cardId).text('Plausible')
-      } else if (card.quality === 'Plausible') {
-        card.quality = 'Swill'
-        $('.' + cardId).text('Swill')
+    if (card.quality === 'genius') {
+        card.quality = 'plausible';
+        $('.' + cardId).text('plausible')
+      } else if (card.quality === 'plausible') {
+        card.quality = 'swill'
+        $('.' + cardId).text('swill')
       }else{
-        card.quality = 'Swill'
-        $('.' + cardId).text('Swill')
+        card.quality = 'swill'
+        $('.' + cardId).text('swill')
       }
   }
   storeCards();
@@ -111,8 +117,9 @@ function retrieveLocalStorage() {
 
 $('.save-btn').on('click', function(event) {
   event.preventDefault();
-  fireCards()
-})
+  fireCards();
+  $('.save-btn').attr('disabled', 'disabled');
+});
 
 cardList.on('keyup', 'h2', function(event) {
   if (event.keyCode === 13) {
@@ -127,7 +134,7 @@ cardList.on('keyup', 'h2', function(event) {
     }
   })
   storeCards();
-})
+});
 
 cardList.on('keyup', '.body-text', function(event) {
   if (event.keyCode === 13) {
@@ -142,7 +149,7 @@ cardList.on('keyup', '.body-text', function(event) {
     }
   })
   storeCards();
-})
+});
 
 $('.search-input').on('keyup', searchCards)
 function searchCards() {
