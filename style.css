@@ -2,11 +2,12 @@ body {
   font-family: 'open sans', sans-serif;
   font-weight: 400;
 }
-
+p{
+  line-height: 140%;
+}
 .top-section {
   background-color: #E5F3F2;
 }
-
 h1 {
   font-family: 'roboto slab', sans-serif;
   font-weight: 700;
@@ -15,15 +16,12 @@ h1 {
   padding-top: .75em;
   margin-bottom: .75em;
 }
-
 .idea {
   color: #00A79D;
 }
-
 .box {
   color: #6D6E71;
 }
-
 .title-input,
 .body-input,
 .save-btn,
@@ -31,15 +29,13 @@ h1 {
   width: 66%;
   display: block;
   margin: auto;
-  margin-bottom: 2em;
+  margin-bottom: 1.75em;
   height: 3em;
 }
-
 .title-input:focus {
   outline-style: auto;
   outline-color: #00A79D;
 }
-
 .body-input:focus {
   outline-style: auto;
   outline-color: #00A79D;
@@ -48,115 +44,121 @@ h1 {
   outline-style: auto;
   outline-color: #00A79D;
 }
-
 .search-input:focus {
   outline-style: auto;
   outline-color: #00A79D;
 }
-
 .save-btn {
   background-color: #00A79D;
   color: #FFFFFF;
   border: none;
 }
-
 .save-btn:hover {
   background-color: #045E55;
 }
-
 .input-fields {
   padding-bottom: .15em;
 }
-
 .search-section {
   margin-top: 1.75em;
   margin-bottom: 1.75em;
 }
-
+.search-input{
+  border: 1px solid #939598;
+}
 h2 {
   color: #6D6E71;
 }
-
 .body {
-  color: #939598;
   text-align: left;
 }
-
+.body-text{
+  color: #939598
+}
 .quality {
   color: #6D6E71;
 }
-
 .idea-card {
   width: 66%;
   margin: auto;
 }
-
 h2 {
   font-size: 1.5em;
   font-family: 'roboto slab', sans-serif;
   display: inline-block;
 }
-
 hr {
-  #D1D3D4;
+  color:#D1D3D4;
+  margin-top: .75em;
 }
-
-.delete-btn,
 .upvote-btn,
-.downvote-btn {
-  height: 1.5em;
-  width: 1.5em;
+.downvote-btn,
+.quality-div,
+.quality{
   display: inline-block;
 }
-
-#delete {
+.quality-div{
+  margin: 0 0 .25em .75em
+}
+.delete-btn{
   height: 1.5em;
   width: 1.5em;
-  position: absolute;
-
-  /*margin-left: 72em;*/
+  float: right;
   display: inline-block;
   background-image: url(ideabox-assets/delete.svg)
+}
+#delete,
+#upvote,
+#downvote {
+  height: 1.5em;
+  width: 1.5em;
 }
 #delete:hover {
   background-image: url(ideabox-assets/delete-hover.svg);
 }
-
 #upvote {
     height: 1.5em;
     width: 1.5em;
-
-    /*margin-left: 72em;*/
     display: inline-block;
-  background-image: url(ideabox-assets/upvote.svg)
+    background-image: url(ideabox-assets/upvote.svg)
 }
-
 #upvote:hover {
   background-image: url(ideabox-assets/upvote-hover.svg)
 }
-
 #downvote {
+  margin-left: .75em;
   height: 1.5em;
   width: 1.5em;
   display: inline-block;
   background-image: url(ideabox-assets/downvote.svg)
 }
-
 #downvote:hover {
   background-image: url(ideabox-assets/downvote-hover.svg)
 }
-
-
 }
 .quality {
+  padding-left: .75em;
   display: inline-block;
-  margin-bottom: .25em;
   font-family: 'roboto slab', sans-serif;
-
 }
-
+ .ratings{
+   display: flex;
+   align-content: center;
+ }
 h2,
 .ratings,
 .body-text {
-  margin-bottom: .75em;
+  margin: .25em 0 1em 0;
+}
+@media (max-width: 450px) {
+    .body-input{
+    padding-top: 0;
+    padding-bottom: 4em;
+  }
+  title-input,
+  .body-input,
+  .save-btn,
+  .search-input {
+    width: 80%;
+  }
 }
