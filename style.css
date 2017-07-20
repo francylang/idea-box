@@ -32,6 +32,28 @@ h1 {
   margin-bottom: 1.75em;
   height: 3em;
 }
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #939598;
+  padding-left: .75em;
+  font-size: 1.2em;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #939598;
+  padding-left: .75em;
+  font-size: .5em;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #939598;
+  padding-left: .75em;
+  font-size: .5em;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #939598;
+  padding-left: .75em;
+  font-size: .5em;
+}
+
 .title-input:focus {
   outline-style: auto;
   outline-color: #00A79D;
@@ -51,6 +73,7 @@ h1 {
 .save-btn {
   background-color: #00A79D;
   color: #FFFFFF;
+  font-size: 1em;
   border: none;
 }
 .save-btn:hover {
@@ -63,8 +86,10 @@ h1 {
   margin-top: 1.75em;
   margin-bottom: 1.75em;
 }
-.search-input{
-  border: 1px solid #939598;
+.search-input,
+.title-input,
+.body-input{
+  border: 2px solid #939598;
 }
 h2 {
   color: #6D6E71;
@@ -77,6 +102,10 @@ h2 {
 }
 .quality {
   color: #6D6E71;
+  margin-left: 1.2em;
+  display: inline-block;
+  font-family: 'roboto slab', sans-serif;
+  letter-spacing: .04em;
 }
 .idea-card {
   width: 66%;
@@ -135,12 +164,7 @@ hr {
 #downvote:hover {
   background-image: url(ideabox-assets/downvote-hover.svg)
 }
-}
-.quality {
-  padding-left: .75em;
-  display: inline-block;
-  font-family: 'roboto slab', sans-serif;
-}
+
  .ratings{
    display: flex;
    align-content: center;
@@ -155,10 +179,11 @@ h2,
     padding-top: 0;
     padding-bottom: 4em;
   }
-  title-input,
+  .title-input,
   .body-input,
   .save-btn,
   .search-input {
     width: 80%;
+    margin-left: auto;
   }
 }
