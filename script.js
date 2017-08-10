@@ -1,25 +1,44 @@
 var cardArray = []
 var cardList = $('.idea-card-parent')
 
-function CardElements(title, body) {
+
+$('.search-input').on('keyup', searchCards)
+$('.title-input, .body-input').on('keyup', enableSave)
+$('.idea-card-parent').on('click', '#delete', deleteIdeaCard)
+$('.idea-card-parent').on('click', '#upvote', upVoteIdea)
+$('.idea-card-parent').on('click', '#downvote', downVoteIdea)
+$('.save-btn').on('click', preventDefault)
+$('.idea-card-parent').on('keyup', 'h2', editIdeaTitle);
+cardList.on('keyup', '.body-text', editIdeaBody)
+
+
+
+$(document).ready(function() {
+  retrieveLocalStorage();
+  clearInputs();
+});
+
+function CardElement(title, body) {
   this.title = title;
   this.body = body;
   this.id = Date.now();
   this.quality = 'swill';
 };
 
-$(window).on('load', function() {
-  retrieveLocalStorage();
-  clearInputs();
-});
 
-$('.title-input, .body-input').keyup(function() {
+function enterKeyBlur(e) {
+  if (e.which === 13) {
+    $(e.target).blur();
+  };
+};
+
+function enableSave() {
   if (($('.title-input').val() !== "") || ($('.body-input').val() !== "")) {
     $('.save-btn').removeAttr('disabled');
   }
-});
+};
 
-$('.idea-card-parent').on('click', '#delete', function() {
+function deleteIdeaCard() {
   var currentCardId = $(this).closest('.idea-card')[0].id
   cardArray.forEach(function(card, index) {
     if (currentCardId == card.id) {
@@ -28,9 +47,10 @@ $('.idea-card-parent').on('click', '#delete', function() {
   })
   storeCards()
   $(this).parents('.idea-card').remove()
-});
+};
 
-$('.idea-card-parent').on('click', '#upvote', function(event) {
+
+function upVoteIdea(event) {
   event.preventDefault();
   var cardId = $(this).closest('.idea-card')[0].id
   cardArray.forEach(function(card) {
@@ -48,9 +68,10 @@ $('.idea-card-parent').on('click', '#upvote', function(event) {
     }
     storeCards();
   })
-});
+};
 
-$('.idea-card-parent').on('click', '#downvote', function (event){
+
+function downVoteIdea(event){
   event.preventDefault();
   var cardId = $(this).closest('.idea-card')[0].id
   cardArray.forEach(function (card) {
@@ -68,30 +89,28 @@ $('.idea-card-parent').on('click', '#downvote', function (event){
   }
   storeCards();
 })
-});
+};
 
-$('.save-btn').on('click', function(event) {
+// this function needs help
+function preventDefault(event) {
   event.preventDefault();
   fireCards();
   $('.save-btn').attr('disabled', 'disabled');
-});
+};
 
-cardList.on('keyup', 'h2', function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    this.blur();
-  }
+function editIdeaTitle() {
   var id = $(this).closest('.idea-card')[0].id;
   var title = $(this).text();
+  enterKeyBlur(event);
   cardArray.forEach(function(card) {
     if (card.id == id) {
       card.title = title;
     }
   })
-  storeCards();
-});
+  storeCards()
+}
 
-cardList.on('keyup', '.body-text', function(event) {
+function editIdeaBody(event) {
   if (event.keyCode === 13) {
     event.preventDefault();
     this.blur();
@@ -104,9 +123,8 @@ cardList.on('keyup', '.body-text', function(event) {
     }
   })
   storeCards();
-});
+};
 
-$('.search-input').on('keyup', searchCards)
 
 function searchCards() {
   var search = $(this).val().toUpperCase();
@@ -117,11 +135,11 @@ function searchCards() {
   });
   $('.idea-card-parent').empty();
   for (var i = 0; i < results.length; i++) {
-    addCards(results[i]);
+    addCard(results[i]);
   }
 };
 
-function addCards(buildCard) {
+function addCard(buildCard) {
   $('.idea-card-parent').prepend(
     `<article class="idea-card" id="${buildCard.id}">
       <h2 contenteditable="true">${buildCard.title}</h2>
@@ -138,9 +156,9 @@ function addCards(buildCard) {
 };
 
 function fireCards() {
-  var newCard = new CardElements($('.title-input').val(), $('.body-input').val());
+  var newCard = new CardElement($('.title-input').val(), $('.body-input').val());
   cardArray.push(newCard)
-  addCards(newCard);
+  addCard(newCard);
   storeCards();
   clearInputs();
 };
@@ -159,6 +177,6 @@ function clearInputs() {
 function retrieveLocalStorage() {
   cardArray = JSON.parse(localStorage.getItem('array')) || [];
   cardArray.forEach(function(card) {
-    addCards(card);
+    addCard(card);
   })
 };
